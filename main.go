@@ -50,4 +50,6 @@ func main(){
 	if !qff.Exists(jfile) { bubble.Fatal(jfile+": file not found!") }
 	jcr:=bubble.SetJCR(jfile)
 	if !jcr6main.HasEntry(jcr,jentry) { bubble.Fatal(jfile + ": "+jentry+": Entry not found") }
+	bubble.WriteLn("Pink","Let's do it!")
+	bubble.LoadScript("BUBBLE",jentry)
 }
