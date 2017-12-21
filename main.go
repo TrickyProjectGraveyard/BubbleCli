@@ -21,7 +21,11 @@ package main
 import (
 	"github.com/jpbubble/base"
 	"os"
+	"path"
 	"trickyunits/mkl"
+	"trickyunits/qff"
+	"trickyunits/jcr6/jcr6main"
+_	"trickyunits/jcr6/jcr6realdir"
 )
 
 func init(){
@@ -31,12 +35,19 @@ mkl.Lic    ("Bubble CLI - main.go","ZLib License")
 
 func main(){
 	bubble.WriteLn("Amber","Bubble CLI\n")
-	if len(os.Args)<2 {
+	if len(os.Args)<3 {
 		bubble.Write("Purple","Usage: ")
 		bubble.Write("Yellow","bubble ")
 		bubble.Write("Cyan","<JCR> <Entry>[.lua] ")
 		bubble.WriteLn("LightBlue","[Parameters]")
 		bubble.WriteLn("White","")
 		bubble.WriteLn("Pink",mkl.ListAll())
+		os.Exit(0)
 	}
+	jfile:=os.Args[1]
+	jentry:=os.Args[2]
+	if path.Ext(jentry)=="" { jentry+=".lua" }
+	if !qff.Exists(jfile) { bubble.Fatal(jfile+": file not found!") }
+	jcr:=bubble.SetJCR(jfile)
+	if !jcr6main.HasEntry(jcr,jentry) { bubble.Fatal(jfile + ": "+jentry+": Entry not found") }
 }
